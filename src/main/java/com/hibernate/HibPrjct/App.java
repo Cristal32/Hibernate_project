@@ -23,10 +23,8 @@ public class App
     public static void main( String[] args )
     {
     	String entrepriseId = null;
-    	
-        System.out.println( "Hello World!" );
         
-        Entreprise ese = new Entreprise("429384", "DXC", "SARL", "123 St.", "0123456789", "Safae", "0987654332");
+        Entreprise ese = new Entreprise("429387", "Twitter", "SARL", "126 St.", "0123456789", "Layla", "0987654332");
        
         Configuration config = new Configuration().configure().addAnnotatedClass(Entreprise.class);
         SessionFactory sf = config.buildSessionFactory();
@@ -35,7 +33,7 @@ public class App
         
         //Ex1: Ajouter une nouvelle entreprise ============================================
         System.out.println("\nEx1\n");
-//        entrepriseId = (String) session.save(ese);
+        //entrepriseId = (String) session.save(ese);
         
         //Ex2: fetch l'entreprise d'id = 429385 ============================================
         System.out.println("\nEx2\n");
@@ -87,10 +85,38 @@ public class App
         }
         System.out.println("\n");
         
-     // 4. Acher le nombre de lignes présentes dans la table
+     // 4. Afficher le nombre de lignes présentes dans la table
         System.out.println("Acher le nombre de lignes présentes dans la table\n");
         
         Long count = (Long) session.createQuery("SELECT COUNT(*) FROM Entreprise").uniqueResult();
-        System.out.println("Le nombre de lignes: " + count);
+        System.out.println("Le nombre de lignes: " + count + "\n");
+        
+      //Ex4: ================================================================================
+        System.out.println("\nEx4\n");
+        
+        //1. mettre à jour le nom d'une entreprise à partir de son identiant.
+        Transaction tx2 = session.beginTransaction();
+        String newName = "X"; // New name for the entreprise
+        Entreprise entrepriseToUpdate = session.get(Entreprise.class, "429387");
+        if (entrepriseToUpdate != null) {
+            entrepriseToUpdate.setRaisonSoc(newName);
+            session.update(entrepriseToUpdate);
+            tx2.commit();
+            System.out.println("Entreprise updated successfully.");
+        } else {
+            System.out.println("Entreprise with ID " + entrepriseId + " not found.");
+        }
+        System.out.println("\n");
+        
+        // 2. supprimer une entreprise à partir de son identiant.
+        Transaction tx3 = session.beginTransaction();
+        Entreprise entrepriseToDelete = session.get(Entreprise.class, "429386");
+        if (entrepriseToDelete != null) {
+            session.delete(entrepriseToDelete);
+            tx3.commit();
+            System.out.println("Entreprise deleted successfully.");
+        } else {
+            System.out.println("Entreprise with ID " + entrepriseId + " not found.");
+        }
     }
 }
