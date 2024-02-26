@@ -1,0 +1,24 @@
+# Eclipse specific files
+.settings/
+.classpath
+.project
+
+# Maven specific files
+target/
+
+# Logs
+*.log
+
+# IDE directories
+/.idea
+/.vscode
+
+# Temporary files
+*.tmp
+*.bak
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+src/main/java/hibernate.cfg.xml
