@@ -98,4 +98,10 @@ public class Entreprise {
     public void setTelContact(String tel_contact) {
         this.tel_contact = tel_contact;
     }
+    
+    // to string
+    @Override
+    public String toString() {
+    	return "Entreprise [ id = " + id + ", raison sociale = " + raison_soc + " ]";
+    }
 }

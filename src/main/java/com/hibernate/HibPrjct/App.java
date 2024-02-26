@@ -13,24 +13,33 @@ public class App
 {
     public static void main( String[] args )
     {
-    	String entrepriseId = "";
+    	String entrepriseId = null;
     	
         System.out.println( "Hello World!" );
         
-        Entreprise ese = new Entreprise("429385", "Orange", "SARL", "124 St.", "0123456789", "Hamza", "0987654332");
-        
+        Entreprise ese = new Entreprise("429384", "DXC", "SARL", "123 St.", "0123456789", "Safae", "0987654332");
+       
         Configuration config = new Configuration().configure().addAnnotatedClass(Entreprise.class);
         SessionFactory sf = config.buildSessionFactory();
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
-        entrepriseId = (String) session.save(ese);
-        //session.save(ese);
+        
+        //Ex1: Ajouter une nouvelle entreprise
+//        entrepriseId = (String) session.save(ese);
+        
+        //Ex2: fetch l'entreprise d'id = 429385
+        ese = (Entreprise) session.get(Entreprise.class, 429385);
+        
         tx.commit();
         
-        if (entrepriseId != null) {
-            System.out.println("New Entreprise added with ID: " + entrepriseId);
-        } else {
-            System.out.println("Failed to add new Entreprise.");
-        }
+//        if (entrepriseId != null) {
+//            System.out.println("New Entreprise added with ID: " + entrepriseId);
+//        } else {
+//            System.out.println("Failed to add new Entreprise.");
+//        }
+        
+        System.out.println(ese);
+        
+        
     }
 }
